@@ -8,9 +8,9 @@ const RootLayout = () => {
       <div className="border-r border-gray-100">
         <SideNavigation />
       </div>
-      <div className="flex flex-col h-full">
+      <div className="flex flex-col h-[100dvh] ">
         <Header />
-        <div className="flex-grow border-t border-gray-100 bg-gray-50">
+        <div className="flex-grow border-t border-gray-100 bg-gray-50 overflow-y-scroll overflow-x-hidden">
           <Outlet />
         </div>
       </div>

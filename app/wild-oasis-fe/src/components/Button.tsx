@@ -2,7 +2,8 @@ import { ReactNode } from "react";
 
 interface ButtonProps {
   children: ReactNode;
-  type: "primary" | "secondary";
+  className?: string;
+  type?: "primary" | "secondary";
   onClick?: () => void;
 }
 
@@ -11,9 +12,9 @@ const buttonStyles = {
   secondary: "border border-gray-300 px-4 py-2.5 rounded-sm text-sm text-gray-700",
 };
 
-const Button = ({ children, type, onClick }: ButtonProps) => {
+const Button = ({ children, type, className, onClick }: ButtonProps) => {
   return (
-    <button className={buttonStyles[type]} onClick={onClick}>
+    <button className={className ? className : buttonStyles[type!]} onClick={onClick}>
       {children}
     </button>
   );
