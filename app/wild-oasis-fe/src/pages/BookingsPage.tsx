@@ -1,7 +1,7 @@
-import React from "react";
+import BookingsTable from "../features/Bookings/BookingsTable";
 
 const BookingsPage = () => {
-  return <div>BookingsPage</div>;
+  return <BookingsTable />;
 };
 
 export default BookingsPage;

@@ -1,5 +1,6 @@
 import express from "express";
 import env from "dotenv";
+import cors from "cors";
 import CabinRest from "./api/services/cabins/cabinsREST";
 import GuestRest from "./api/services/guests/guestsREST";
 import SettingsRest from "./api/services/settings/settingsREST";
@@ -16,6 +17,15 @@ const port = process.env.SERVER_PORT;
 function startServer() {
   server.use(express.urlencoded({ extended: true }));
   server.use(express.json());
+  server.use(cors());
+
+  server.use((req, res, next) => {
+    res.setHeader("Access-Control-Allow-Origin", "http://localhost:5173");
+    res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+    res.setHeader("Access-Control-Expose-Headers", "Authorization");
+    next();
+  });
 
   prepareGuestPaths();
   prepareSettingsPaths();

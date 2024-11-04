@@ -11,10 +11,11 @@ class BookingsDAO {
   async getBookings() {
     try {
       const sql = `
-            SELECT bookings.*, "cabins"."name" AS "cabinName"
-            FROM "bookings"
-            JOIN "cabins" ON "bookings"."cabinId" = "cabins"."id"
-        `;
+          SELECT bookings.*, "cabins"."name" AS "cabinName", "guests"."fullName" AS "guestFullName", "guests"."email" AS "guestEmail"
+          FROM "bookings"
+          JOIN "cabins" ON "bookings"."cabinId" = "cabins"."id"
+          JOIN "guests" ON "bookings"."guestId" = "guests"."id"
+      `;
       const data = await this.db.query(sql, []);
       return data.rows;
     } catch (error: any) {
