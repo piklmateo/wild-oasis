@@ -9,52 +9,60 @@ const SettingsForm = () => {
     <div className="max-w-6xl m-10 xl:mx-auto text-gray-900 flex flex-col gap-8">
       <Form type="grid" heading="Update hotel settings" headingType="xxxl">
         <Input
-          htmlFor="minBookingLength"
-          type="number"
-          name="minBookingLength"
-          id="minBookingLength"
-          inputType="grid"
-          labelType="grid"
-          gridDivider
+          inputConfig={{
+            type: "number",
+            htmlFor: "minBookingLength",
+            name: "minBookingLength",
+            id: "minBookingLength",
+            labelStyleVariant: "grid",
+            inputStyleVariant: "grid",
+            showDivider: true,
+          }}
           register={register}
         >
           Minimum nights/booking
         </Input>
 
         <Input
-          htmlFor="maxBookingLength"
-          type="number"
-          name="maxBookingLength"
-          id="maxBookingLength"
-          inputType="grid"
-          labelType="grid"
-          gridDivider
+          inputConfig={{
+            type: "number",
+            htmlFor: "maxBookingLength",
+            name: "maxBookingLength",
+            id: "maxBookingLength",
+            labelStyleVariant: "grid",
+            inputStyleVariant: "grid",
+            showDivider: true,
+          }}
           register={register}
         >
           Maximum nights/booking
         </Input>
 
         <Input
-          htmlFor="maxGuestsPerBooking"
-          type="number"
-          name="maxGuestsPerBooking"
-          id="maxGuestsPerBooking"
-          inputType="grid"
-          labelType="grid"
-          gridDivider
+          inputConfig={{
+            type: "number",
+            htmlFor: "maxGuestsPerBooking",
+            name: "maxGuestsPerBooking",
+            id: "maxGuestsPerBooking",
+            labelStyleVariant: "grid",
+            inputStyleVariant: "grid",
+            showDivider: true,
+          }}
           register={register}
         >
           Maximum guests/booking
         </Input>
 
         <Input
-          htmlFor="breakfastPrice"
-          type="number"
-          name="breakfastPrice"
-          id="breakfastPrice"
-          inputType="grid"
-          labelType="grid"
-          gridDivider
+          inputConfig={{
+            type: "number",
+            htmlFor: "breakfastPrice",
+            name: "breakfastPrice",
+            id: "breakfastPrice",
+            labelStyleVariant: "grid",
+            inputStyleVariant: "grid",
+            showDivider: true,
+          }}
           register={register}
         >
           Breakfast price
