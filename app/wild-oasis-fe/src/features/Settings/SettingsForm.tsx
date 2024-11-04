@@ -1,9 +1,44 @@
 import { useForm } from "react-hook-form";
 import Form from "../../components/Form";
 import Input from "../../components/Input";
+import { useQuery } from "@tanstack/react-query";
+import { getHotelSettings } from "../../services/settingsService";
+import { useEffect } from "react";
 
 const SettingsForm = () => {
-  const { register } = useForm();
+  const {
+    data: settings,
+    isPending,
+    error,
+  } = useQuery({
+    queryKey: ["settings"],
+    queryFn: getHotelSettings,
+  });
+
+  const { register, reset } = useForm({
+    defaultValues: {
+      minBookingLength: 0,
+      maxBookingLength: 0,
+      maxGuestsPerBooking: 0,
+      breakfastPrice: 0,
+    },
+  });
+
+  useEffect(() => {
+    if (settings) {
+      reset({
+        minBookingLength: settings.minBookingLength,
+        maxBookingLength: settings.maxBookingLength,
+        maxGuestsPerBooking: settings.maxGuestsPerBooking,
+        breakfastPrice: settings.breakfastPrice,
+      });
+    }
+  }, [settings, reset]);
+
+  if (isPending) return <div>Loading...</div>;
+  if (error) return <div>Error</div>;
+
+  console.log(settings?.maxBookingLength);
 
   return (
     <div className="max-w-6xl m-10 xl:mx-auto text-gray-900 flex flex-col gap-8">

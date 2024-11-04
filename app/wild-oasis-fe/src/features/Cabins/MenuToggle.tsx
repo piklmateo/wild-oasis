@@ -1,12 +1,13 @@
-import { useEffect, useRef, useState } from "react";
+import { ReactNode, useEffect, useRef, useState } from "react";
 import { Booking, Cabin } from "../../services/data/types";
 import { HiEllipsisVertical } from "react-icons/hi2";
 
 interface MenuToggleProps {
   item: Cabin | Booking;
+  children: ReactNode;
 }
 
-const MenuToggle = ({ item }: MenuToggleProps) => {
+const MenuToggle = ({ item, children }: MenuToggleProps) => {
   const [openId, setOpenId] = useState<number | null>(null);
   const menuRef = useRef<HTMLDivElement>(null);
 
@@ -23,8 +24,9 @@ const MenuToggle = ({ item }: MenuToggleProps) => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+
   return (
-    <>
+    <div className="relative inline-block">
       <button
         onClick={(e) => {
           e.stopPropagation();
@@ -39,14 +41,12 @@ const MenuToggle = ({ item }: MenuToggleProps) => {
       {openId === item.id && (
         <div
           ref={menuRef}
-          className="rounded-md bg-gray-50 p-4 text-sm flex flex-col gap-4 capitalize items-start shadow-md border shadow-gray-900 absolute z-50 bottom-[-180%] left-[-70%] md:left-[-80%] lg:left-[-40%]"
+          className="absolute top-full left-0 mt-2 min-w-44 rounded-md bg-gray-50 text-sm flex flex-col capitalize items-start shadow-md border shadow-gray-900 z-50"
         >
-          <span>duplicate</span>
-          <span>edit</span>
-          <span>delete</span>
+          {children}
         </div>
       )}
-    </>
+    </div>
   );
 };
 

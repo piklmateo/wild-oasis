@@ -5,11 +5,12 @@ import CabinRow from "./CabinRow";
 import Button from "../../components/Button";
 import AddCabinModal from "./AddCabinModal";
 import { useModal } from "../../context/ModalContext";
+import EditCabinModal from "./EditCabinModal";
 
 const cabinTableHeaders: string[] = [" ", "Cabin", "Capacity", "Price", "Discount", " "];
 
 const CabinsTable = () => {
-  const { openModal } = useModal();
+  const { openModal, modalIsOpen, modalType, selectedCabin } = useModal();
 
   const {
     isPending,
@@ -39,13 +40,13 @@ const CabinsTable = () => {
         <tbody>{cabinsData && cabinsData.map((cabin) => <CabinRow key={cabin.id} cabin={cabin} />)}</tbody>
       </Table>
       <div>
-        <Button onClick={openModal} style="primary">
+        <Button onClick={() => openModal("add")} style="primary">
           Add new cabin
         </Button>
       </div>
-      <div>
-        <AddCabinModal />
-      </div>
+
+      {modalIsOpen && modalType === "add" && <AddCabinModal />}
+      {modalIsOpen && modalType === "edit" && selectedCabin && <EditCabinModal cabin={selectedCabin} />}
     </div>
   );
 };
