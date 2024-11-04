@@ -1,17 +1,21 @@
 import { ReactNode } from "react";
 import { UseFormRegister, Path, FieldValues } from "react-hook-form";
 
-interface InputProps<T extends FieldValues> {
-  children: ReactNode;
-  htmlFor: string;
+interface InputConfig<T extends FieldValues> {
   type: string;
+  htmlFor: string;
   name: Path<T>;
   id: string;
-  labelType: "grid";
-  inputType: "grid" | "file";
-  gridDivider?: boolean;
+  labelStyleVariant: "grid";
+  inputStyleVariant: "grid" | "file";
+  showDivider?: boolean;
+}
+
+interface InputProps<T extends FieldValues> {
+  children: ReactNode;
+  inputConfig: InputConfig<T>;
   register: UseFormRegister<T>;
-  onChange?: React.ChangeEventHandler<HTMLInputElement>;
+  onChange?: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
 }
 
 const labelStyles = {
@@ -23,25 +27,21 @@ const inputStyles = {
   file: "text-gray-700 file:bg-indigo-600 file:hover:bg-indigo-500 file:text-gray-50 file:border-0 file:px-4 file:py-2.5 file:mr-2 file:rounded-sm file:cursor-pointer",
 };
 
-const Input = <T extends FieldValues>({
-  children,
-  htmlFor,
-  type,
-  name,
-  id,
-  labelType,
-  inputType,
-  gridDivider = false,
-  register,
-  onChange,
-}: InputProps<T>) => {
+const Input = <T extends FieldValues>({ children, register, onChange, inputConfig }: InputProps<T>) => {
+  const { htmlFor, type, name, id, labelStyleVariant, inputStyleVariant, showDivider = false } = inputConfig;
+
   return (
     <>
-      <label htmlFor={htmlFor} className={labelStyles[labelType]}>
+      <label htmlFor={htmlFor} className={labelStyles[labelStyleVariant]}>
         {children}
       </label>
-      <input className={inputStyles[inputType]} type={type} id={id} {...register(name)} onChange={onChange} />
-      {gridDivider && (
+      {inputConfig.type === "textarea" ? (
+        <textarea className={inputStyles[inputStyleVariant]} id={id} {...register(name)} onChange={onChange} />
+      ) : (
+        <input className={inputStyles[inputStyleVariant]} type={type} id={id} {...register(name)} onChange={onChange} />
+      )}
+
+      {showDivider && (
         <div className="col-span-3">
           <hr className="border-t border-gray-100" />
         </div>

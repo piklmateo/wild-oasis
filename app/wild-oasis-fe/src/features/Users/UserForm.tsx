@@ -10,52 +10,60 @@ const UserForm = () => {
     <div className="max-w-6xl m-10 xl:mx-auto text-gray-900 flex flex-col gap-8">
       <Form type="grid" heading="Create a new user" headingType="xxxl">
         <Input
-          htmlFor="fullName"
-          type="text"
-          name="fullName"
-          id="fullName"
-          inputType="grid"
-          labelType="grid"
-          gridDivider
+          inputConfig={{
+            type: "text",
+            htmlFor: "fullName",
+            name: "fullName",
+            id: "fullName",
+            labelStyleVariant: "grid",
+            inputStyleVariant: "grid",
+            showDivider: true,
+          }}
           register={register}
         >
           Full name
         </Input>
 
         <Input
-          htmlFor="email"
-          type="text"
-          name="email"
-          id="email"
-          inputType="grid"
-          labelType="grid"
-          gridDivider
+          inputConfig={{
+            type: "text",
+            htmlFor: "email",
+            name: "email",
+            id: "email",
+            labelStyleVariant: "grid",
+            inputStyleVariant: "grid",
+            showDivider: true,
+          }}
           register={register}
         >
           Email
         </Input>
 
         <Input
-          htmlFor="password"
-          type="text"
-          name="password"
-          id="password"
-          inputType="grid"
-          labelType="grid"
-          gridDivider
+          inputConfig={{
+            type: "password",
+            htmlFor: "password",
+            name: "password",
+            id: "password",
+            labelStyleVariant: "grid",
+            inputStyleVariant: "grid",
+            showDivider: true,
+          }}
           register={register}
         >
           Password (min 8 characters)
         </Input>
 
         <Input
-          htmlFor="repeatPassword"
-          type="text"
-          name="repeatPassword"
-          id="repeatPassword"
-          inputType="grid"
-          labelType="grid"
-          gridDivider
+          inputConfig={{
+            type: "password",
+            htmlFor: "repeatPassword",
+            name: "repeatPassword",
+            id: "repeatPassword",
+            labelStyleVariant: "grid",
+            inputStyleVariant: "grid",
+            showDivider: true,
+          }}
           register={register}
         >
           Repeat password

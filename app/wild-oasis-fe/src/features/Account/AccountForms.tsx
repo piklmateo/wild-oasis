@@ -11,37 +11,43 @@ const AccountForms = () => {
       <h1 className="font-semibold text-2xl">Update your account</h1>
       <Form type="grid" heading="Update user data" headingType="xl">
         <Input
-          type="text"
-          htmlFor="email"
-          name="email"
-          id="email"
-          labelType="grid"
-          inputType="grid"
-          gridDivider
+          inputConfig={{
+            type: "text",
+            htmlFor: "email",
+            name: "email",
+            id: "email",
+            labelStyleVariant: "grid",
+            inputStyleVariant: "grid",
+            showDivider: true,
+          }}
           register={register}
         >
           Email address
         </Input>
         <Input
-          type="text"
-          htmlFor="fullName"
-          name="fullName"
-          id="fullName"
-          labelType="grid"
-          inputType="grid"
-          gridDivider
+          inputConfig={{
+            type: "text",
+            htmlFor: "fullName",
+            name: "fullName",
+            id: "fullName",
+            labelStyleVariant: "grid",
+            inputStyleVariant: "grid",
+            showDivider: true,
+          }}
           register={register}
         >
           Full name
         </Input>
         <Input
-          type="file"
-          htmlFor="avatar"
-          name="avatar"
-          id="avatar"
-          labelType="grid"
-          inputType="file"
-          gridDivider
+          inputConfig={{
+            type: "text",
+            htmlFor: "avatar",
+            name: "avatar",
+            id: "avatar",
+            labelStyleVariant: "grid",
+            inputStyleVariant: "grid",
+            showDivider: true,
+          }}
           register={register}
         >
           Avatar image
@@ -55,25 +61,29 @@ const AccountForms = () => {
 
       <Form type="grid" heading="Update password" headingType="xl">
         <Input
-          type="password"
-          htmlFor="newPassword"
-          name="newPassword"
-          id="newPassword"
-          labelType="grid"
-          inputType="grid"
-          gridDivider
+          inputConfig={{
+            type: "password",
+            htmlFor: "newPassword",
+            name: "newPassword",
+            id: "newPassword",
+            labelStyleVariant: "grid",
+            inputStyleVariant: "grid",
+            showDivider: true,
+          }}
           register={register}
         >
           New password (min 8 characters)
         </Input>
         <Input
-          type="password"
-          htmlFor="confirmPassword"
-          name="confirmPassword"
-          id="confirmPassword"
-          labelType="grid"
-          inputType="grid"
-          gridDivider
+          inputConfig={{
+            type: "password",
+            htmlFor: "confirmPassword",
+            name: "confirmPassword",
+            id: "confirmPassword",
+            labelStyleVariant: "grid",
+            inputStyleVariant: "grid",
+            showDivider: true,
+          }}
           register={register}
         >
           Confirm password

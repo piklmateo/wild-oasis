@@ -23,73 +23,85 @@ const AddCabinModal = () => {
     <Modal>
       <Form type="grid" heading="" headingType="xl" onSubmit={handleSubmit(onSubmit)}>
         <Input
-          type="text"
-          name="name"
-          htmlFor="name"
-          id="name"
-          labelType="grid"
-          inputType="grid"
-          gridDivider
+          inputConfig={{
+            type: "password",
+            htmlFor: "name",
+            name: "name",
+            id: "name",
+            labelStyleVariant: "grid",
+            inputStyleVariant: "grid",
+            showDivider: true,
+          }}
           register={register}
         >
           Cabin name
         </Input>
         <Input
-          type="text"
-          name="maxCapacity"
-          htmlFor="maxCapacity"
-          id="maxCapacity"
-          labelType="grid"
-          inputType="grid"
-          gridDivider
+          inputConfig={{
+            type: "number",
+            htmlFor: "maxCapacity",
+            name: "maxCapacity",
+            id: "maxCapacity",
+            labelStyleVariant: "grid",
+            inputStyleVariant: "grid",
+            showDivider: true,
+          }}
           register={register}
         >
           Maximum capacity
         </Input>
         <Input
-          type="text"
-          name="regularPrice"
-          htmlFor="regularPrice"
-          id="regularPrice"
-          labelType="grid"
-          inputType="grid"
-          gridDivider
+          inputConfig={{
+            type: "number",
+            htmlFor: "regularPrice",
+            name: "regularPrice",
+            id: "regularPrice",
+            labelStyleVariant: "grid",
+            inputStyleVariant: "grid",
+            showDivider: true,
+          }}
           register={register}
         >
           Regular price
         </Input>
         <Input
-          type="number"
-          name="discount"
-          htmlFor="discount"
-          id="discount"
-          labelType="grid"
-          inputType="grid"
-          gridDivider
+          inputConfig={{
+            type: "number",
+            htmlFor: "discount",
+            name: "discount",
+            id: "discount",
+            labelStyleVariant: "grid",
+            inputStyleVariant: "grid",
+            showDivider: true,
+          }}
           register={register}
         >
           Discount
         </Input>
         <Input
-          type="text"
-          name="description"
-          htmlFor="description"
-          id="description"
-          labelType="grid"
-          inputType="grid"
-          gridDivider
+          inputConfig={{
+            type: "textarea",
+            htmlFor: "description",
+            name: "description",
+            id: "description",
+            labelStyleVariant: "grid",
+            inputStyleVariant: "grid",
+            showDivider: true,
+          }}
           register={register}
         >
           Description for website
         </Input>
         <Input
-          type="file"
-          name="image"
-          htmlFor="image"
-          id="image"
-          labelType="grid"
-          inputType="file"
-          gridDivider
+          inputConfig={{
+            type: "file",
+            htmlFor: "image",
+            name: "image",
+            id: "image",
+            labelStyleVariant: "grid",
+            inputStyleVariant: "file",
+            showDivider: true,
+          }}
           register={register}
         >
           Cabin photo
