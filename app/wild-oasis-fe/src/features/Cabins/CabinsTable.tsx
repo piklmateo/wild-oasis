@@ -1,25 +1,16 @@
 import Table from "../../components/Table";
-import { useQuery } from "@tanstack/react-query";
-import { getCabins } from "../../services/cabinsService";
 import CabinRow from "./CabinRow";
 import Button from "../../components/Button";
 import AddCabinModal from "./AddCabinModal";
 import { useModal } from "../../context/ModalContext";
 import EditCabinModal from "./EditCabinModal";
+import { useCabins } from "./hooks/useCabins";
 
 const cabinTableHeaders: string[] = [" ", "Cabin", "Capacity", "Price", "Discount", " "];
 
 const CabinsTable = () => {
   const { openModal, modalIsOpen, modalType, selectedCabin } = useModal();
-
-  const {
-    isPending,
-    error,
-    data: cabinsData,
-  } = useQuery({
-    queryKey: ["cabins"],
-    queryFn: getCabins,
-  });
+  const { isPending, error, cabins: cabinsData } = useCabins();
 
   if (isPending) return <div>Loading...</div>;
   if (error) return <div>error</div>;

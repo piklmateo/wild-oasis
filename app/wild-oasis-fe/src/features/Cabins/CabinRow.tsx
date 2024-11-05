@@ -3,6 +3,8 @@ import Button from "../../components/Button";
 import { Cabin } from "../../services/data/types";
 import MenuToggle from "./MenuToggle";
 import { useModal } from "../../context/ModalContext";
+import { useDuplicateCabins } from "./hooks/useDuplicateCabins";
+import { useDeleteCabins } from "./hooks/useDeleteCabins";
 
 interface CabinRowProps {
   cabin: Cabin;
@@ -10,6 +12,24 @@ interface CabinRowProps {
 
 const CabinRow = ({ cabin }: CabinRowProps) => {
   const { openModal } = useModal();
+  const { duplicateCabins } = useDuplicateCabins();
+  const { removeCabin } = useDeleteCabins();
+
+  const handleCabinDuplicate = async (cabinId: number) => {
+    try {
+      duplicateCabins(cabinId);
+    } catch (error) {
+      console.error("Error duplicating cabin:", error);
+    }
+  };
+
+  const handleCabinDelete = async (id: number) => {
+    try {
+      removeCabin(id);
+    } catch (error) {
+      console.log("Error: ", error);
+    }
+  };
 
   return (
     <tr className="border text-sm text-gray-600" key={cabin.id}>
@@ -22,7 +42,10 @@ const CabinRow = ({ cabin }: CabinRowProps) => {
       <td className="">{cabin.discount}</td>
       <td className="text-2xl relative">
         <MenuToggle item={cabin}>
-          <Button className="hover:bg-gray-100 w-full px-4 py-2.5 text-start flex items-center gap-4 capitalize">
+          <Button
+            onClick={() => handleCabinDuplicate(cabin.id)}
+            className="hover:bg-gray-100 w-full px-4 py-2.5 text-start flex items-center gap-4 capitalize"
+          >
             <HiSquare2Stack className="text-base text-gray-400" />
             duplicate
           </Button>
@@ -33,7 +56,10 @@ const CabinRow = ({ cabin }: CabinRowProps) => {
             <HiPencil className="text-base text-gray-400" />
             edit
           </Button>
-          <Button className="hover:bg-gray-100 w-full px-4 py-2.5 text-start flex items-center gap-4 capitalize">
+          <Button
+            onClick={() => handleCabinDelete(cabin.id)}
+            className="hover:bg-gray-100 w-full px-4 py-2.5 text-start flex items-center gap-4 capitalize"
+          >
             <HiTrash className="text-base text-gray-400" />
             delete
           </Button>

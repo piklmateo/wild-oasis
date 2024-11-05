@@ -5,6 +5,7 @@ interface ButtonProps {
   className?: string;
   style?: "primary" | "secondary";
   type?: "submit" | "reset" | "button" | undefined;
+  disabled?: boolean;
   onClick?: () => void;
 }
 
@@ -13,9 +14,9 @@ const buttonStyles = {
   secondary: "border border-gray-300 hover:bg-gray-100 px-4 py-2.5 rounded-sm text-sm text-gray-700 transition-all",
 };
 
-const Button = ({ children, style, type, className, onClick }: ButtonProps) => {
+const Button = ({ children, style, type, className, onClick, disabled }: ButtonProps) => {
   return (
-    <button type={type} className={className ? className : buttonStyles[style!]} onClick={onClick}>
+    <button type={type} className={className ? className : buttonStyles[style!]} onClick={onClick} disabled={disabled}>
       {children}
     </button>
   );

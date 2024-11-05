@@ -5,13 +5,27 @@ import Input from "../../components/Input";
 import Modal from "../../components/Modal";
 import { useModal } from "../../context/ModalContext";
 import { CabinDto } from "../../services/data/types";
+import { useInsertCabin } from "./hooks/useInsertCabin";
 
 const AddCabinModal = () => {
   const { closeModal } = useModal();
-  const { register, handleSubmit } = useForm<CabinDto>();
+  const { createCabin } = useInsertCabin();
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { isSubmitting },
+  } = useForm<CabinDto>();
 
   const onSubmit: SubmitHandler<CabinDto> = async (cabin) => {
     try {
+      createCabin(cabin, {
+        onSuccess: () => {
+          reset();
+          closeModal();
+        },
+      });
       console.log(cabin);
     } catch (error) {
       console.error(error);
@@ -24,7 +38,7 @@ const AddCabinModal = () => {
       <Form type="grid" heading="" headingType="xl" onSubmit={handleSubmit(onSubmit)}>
         <Input
           inputConfig={{
-            type: "password",
+            type: "text",
             htmlFor: "name",
             name: "name",
             id: "name",
@@ -110,7 +124,7 @@ const AddCabinModal = () => {
           <Button onClick={closeModal} style="secondary">
             Cancel
           </Button>
-          <Button type="submit" style="primary">
+          <Button type="submit" style="primary" disabled={isSubmitting}>
             Create new cabin
           </Button>
         </div>
