@@ -5,6 +5,7 @@ import MenuToggle from "./MenuToggle";
 import { useModal } from "../../context/ModalContext";
 import { useDuplicateCabins } from "./hooks/useDuplicateCabins";
 import { useDeleteCabins } from "./hooks/useDeleteCabins";
+import MiniSpinner from "../../components/MiniSpinner";
 
 interface CabinRowProps {
   cabin: Cabin;
@@ -12,8 +13,8 @@ interface CabinRowProps {
 
 const CabinRow = ({ cabin }: CabinRowProps) => {
   const { openModal } = useModal();
-  const { duplicateCabins } = useDuplicateCabins();
-  const { removeCabin } = useDeleteCabins();
+  const { duplicateCabins, isDuplicating } = useDuplicateCabins();
+  const { removeCabin, isDeleting } = useDeleteCabins();
 
   const handleCabinDuplicate = async (cabinId: number) => {
     try {
@@ -39,7 +40,7 @@ const CabinRow = ({ cabin }: CabinRowProps) => {
       <td className="font-semibold">{cabin.name}</td>
       <td className="">Fits up to {cabin.maxCapacity} guests</td>
       <td className="">{cabin.regularPrice}</td>
-      <td className="">{cabin.discount}</td>
+      <td className="">{cabin.discount ? cabin.discount : "-"}</td>
       <td className="text-2xl relative">
         <MenuToggle item={cabin}>
           <Button
@@ -48,6 +49,7 @@ const CabinRow = ({ cabin }: CabinRowProps) => {
           >
             <HiSquare2Stack className="text-base text-gray-400" />
             duplicate
+            {isDuplicating && <MiniSpinner color="#9ca3af" secondaryColor="#e2e2e2" />}
           </Button>
           <Button
             onClick={() => openModal("edit", cabin)}
@@ -62,6 +64,7 @@ const CabinRow = ({ cabin }: CabinRowProps) => {
           >
             <HiTrash className="text-base text-gray-400" />
             delete
+            {isDeleting && <MiniSpinner color="#9ca3af" secondaryColor="#e2e2e2" />}
           </Button>
         </MenuToggle>
       </td>

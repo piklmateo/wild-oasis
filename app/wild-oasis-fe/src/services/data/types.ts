@@ -36,3 +36,10 @@ export interface Booking {
   guestFullName: string;
   guestEmail: string;
 }
+
+export interface HotelSettings {
+  minBookingLength: number;
+  maxBookingLength: number;
+  maxGuestsPerBooking: number;
+  breakfastPrice: number;
+}

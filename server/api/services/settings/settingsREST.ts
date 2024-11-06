@@ -53,6 +53,7 @@ class SettingsREST {
       const sdao = new SettingsDAO();
       const id = Number(req.params.id);
       const settings: CustomSettings = req.body;
+      console.log("SETINGS: ", JSON.stringify(settings) + " ID: ", id);
       const data = await sdao.updateSetting(id, settings);
       if (data) {
         res.json({ message: "Setting successfully updated", data });

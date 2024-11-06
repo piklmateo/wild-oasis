@@ -9,6 +9,7 @@ interface InputConfig<T extends FieldValues> {
   labelStyleVariant: "grid";
   inputStyleVariant: "grid" | "file";
   showDivider?: boolean;
+  defaultValue?: any;
 }
 
 interface InputProps<T extends FieldValues> {
@@ -28,7 +29,16 @@ const inputStyles = {
 };
 
 const Input = <T extends FieldValues>({ children, register, onChange, inputConfig }: InputProps<T>) => {
-  const { htmlFor, type, name, id, labelStyleVariant, inputStyleVariant, showDivider = false } = inputConfig;
+  const {
+    htmlFor,
+    type,
+    name,
+    id,
+    labelStyleVariant,
+    inputStyleVariant,
+    showDivider = false,
+    defaultValue,
+  } = inputConfig;
 
   return (
     <>
@@ -38,7 +48,14 @@ const Input = <T extends FieldValues>({ children, register, onChange, inputConfi
       {inputConfig.type === "textarea" ? (
         <textarea className={inputStyles[inputStyleVariant]} id={id} {...register(name)} onChange={onChange} />
       ) : (
-        <input className={inputStyles[inputStyleVariant]} type={type} id={id} {...register(name)} onChange={onChange} />
+        <input
+          className={inputStyles[inputStyleVariant]}
+          type={type}
+          id={id}
+          {...register(name)}
+          onChange={onChange}
+          defaultValue={defaultValue}
+        />
       )}
 
       {showDivider && (

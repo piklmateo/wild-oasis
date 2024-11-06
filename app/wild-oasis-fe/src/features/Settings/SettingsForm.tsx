@@ -1,9 +1,13 @@
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import Form from "../../components/Form";
 import Input from "../../components/Input";
-import { useQuery } from "@tanstack/react-query";
 import { getHotelSettings } from "../../services/settingsService";
-import { useEffect } from "react";
+import { HotelSettings } from "../../services/data/types";
+import { useQuery } from "@tanstack/react-query";
+import { useUpdateSettings } from "./hooks/useUpdateSettings";
+import Button from "../../components/Button";
+import MiniSpinner from "../../components/MiniSpinner";
+import PageSpinner from "../../components/PageSpinner";
 
 const SettingsForm = () => {
   const {
@@ -15,34 +19,30 @@ const SettingsForm = () => {
     queryFn: getHotelSettings,
   });
 
-  const { register, reset } = useForm({
-    defaultValues: {
-      minBookingLength: 0,
-      maxBookingLength: 0,
-      maxGuestsPerBooking: 0,
-      breakfastPrice: 0,
-    },
-  });
+  const { register, handleSubmit } = useForm<HotelSettings>();
+  const { updateSetting, isUpdating } = useUpdateSettings();
 
-  useEffect(() => {
-    if (settings) {
-      reset({
-        minBookingLength: settings.minBookingLength,
-        maxBookingLength: settings.maxBookingLength,
-        maxGuestsPerBooking: settings.maxGuestsPerBooking,
-        breakfastPrice: settings.breakfastPrice,
-      });
+  const onSubmit: SubmitHandler<HotelSettings> = async (settings) => {
+    try {
+      const updatedSettings = {
+        minBookingLength: Number(settings.minBookingLength),
+        maxBookingLength: Number(settings.maxBookingLength),
+        maxGuestsPerBooking: Number(settings.maxGuestsPerBooking),
+        breakfastPrice: Number(settings.breakfastPrice),
+      };
+      updateSetting(updatedSettings);
+      console.log("Updated settings:", updatedSettings);
+    } catch (error) {
+      console.error("Error updating settings", error);
     }
-  }, [settings, reset]);
+  };
 
-  if (isPending) return <div>Loading...</div>;
-  if (error) return <div>Error</div>;
-
-  console.log(settings?.maxBookingLength);
+  if (isPending) return <PageSpinner />;
+  if (error) return <div>error</div>;
 
   return (
     <div className="max-w-6xl m-10 xl:mx-auto text-gray-900 flex flex-col gap-8">
-      <Form type="grid" heading="Update hotel settings" headingType="xxxl">
+      <Form type="grid" heading="Update hotel settings" headingType="xxxl" onSubmit={handleSubmit(onSubmit)}>
         <Input
           inputConfig={{
             type: "number",
@@ -52,6 +52,7 @@ const SettingsForm = () => {
             labelStyleVariant: "grid",
             inputStyleVariant: "grid",
             showDivider: true,
+            defaultValue: settings?.minBookingLength,
           }}
           register={register}
         >
@@ -67,6 +68,7 @@ const SettingsForm = () => {
             labelStyleVariant: "grid",
             inputStyleVariant: "grid",
             showDivider: true,
+            defaultValue: settings?.maxBookingLength,
           }}
           register={register}
         >
@@ -82,6 +84,7 @@ const SettingsForm = () => {
             labelStyleVariant: "grid",
             inputStyleVariant: "grid",
             showDivider: true,
+            defaultValue: settings?.maxGuestsPerBooking,
           }}
           register={register}
         >
@@ -97,11 +100,21 @@ const SettingsForm = () => {
             labelStyleVariant: "grid",
             inputStyleVariant: "grid",
             showDivider: true,
+            defaultValue: settings?.breakfastPrice,
           }}
           register={register}
         >
           Breakfast price
         </Input>
+
+        <div className="col-span-3 flex justify-end space-x-5 pt-4">
+          <Button type="submit" style="primary" disabled={isUpdating}>
+            <div className="flex justify-center gap-2 items-center">
+              {isUpdating && <MiniSpinner color="#FFFFFF" secondaryColor="#e2e2e2" />}
+              Update settings
+            </div>
+          </Button>
+        </div>
       </Form>
     </div>
   );

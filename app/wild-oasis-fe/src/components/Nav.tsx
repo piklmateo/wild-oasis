@@ -44,8 +44,8 @@ const Nav = () => {
           <li key={item.label}>
             <NavLink
               className={({ isActive }) =>
-                `flex items-center gap-2 px-4 py-2.5 rounded-sm transition-all ${
-                  isActive ? "bg-gray-100  text-indigo-700" : "text-gray-500 hover:bg-gray-100"
+                `flex items-center gap-2 px-4 py-2.5 rounded-sm transition-all  ${
+                  isActive ? "bg-gray-100  text-indigo-700" : "text-gray-500 hover:bg-gray-100 cursor-pointer"
                 }`
               }
               to={item.url}

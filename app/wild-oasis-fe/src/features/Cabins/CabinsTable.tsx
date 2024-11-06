@@ -5,6 +5,7 @@ import AddCabinModal from "./AddCabinModal";
 import { useModal } from "../../context/ModalContext";
 import EditCabinModal from "./EditCabinModal";
 import { useCabins } from "./hooks/useCabins";
+import PageSpinner from "../../components/PageSpinner";
 
 const cabinTableHeaders: string[] = [" ", "Cabin", "Capacity", "Price", "Discount", " "];
 
@@ -12,7 +13,7 @@ const CabinsTable = () => {
   const { openModal, modalIsOpen, modalType, selectedCabin } = useModal();
   const { isPending, error, cabins: cabinsData } = useCabins();
 
-  if (isPending) return <div>Loading...</div>;
+  if (isPending) return <PageSpinner />;
   if (error) return <div>error</div>;
 
   return (

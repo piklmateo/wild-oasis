@@ -50,7 +50,7 @@ class SettingsDAO {
   async updateSetting(id: number, settings: CustomSettings) {
     try {
       const sql = `
-        UPDATE "settings"  // Ensure the correct table name
+        UPDATE "settings"
         SET "minBookingLength" = $1, "maxBookingLength" = $2, "maxGuestsPerBooking" = $3, "breakfastPrice" = $4
         WHERE "id" = $5
         RETURNING *

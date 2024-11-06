@@ -5,6 +5,7 @@ import Input from "../../components/Input";
 import Modal from "../../components/Modal";
 import { useModal } from "../../context/ModalContext";
 import { Cabin, CabinDto } from "../../services/data/types";
+import MiniSpinner from "../../components/MiniSpinner";
 
 interface EditCabinProps {
   cabin: Cabin;
@@ -12,7 +13,11 @@ interface EditCabinProps {
 
 const EditCabinModal = ({ cabin }: EditCabinProps) => {
   const { closeModal } = useModal();
-  const { register, handleSubmit } = useForm<CabinDto>({
+  const {
+    register,
+    handleSubmit,
+    formState: { isSubmitting },
+  } = useForm<CabinDto>({
     defaultValues: {
       name: cabin.name,
       maxCapacity: cabin.maxCapacity,
@@ -125,8 +130,11 @@ const EditCabinModal = ({ cabin }: EditCabinProps) => {
           <Button onClick={closeModal} style="secondary">
             Cancel
           </Button>
-          <Button type="submit" style="primary">
-            Edit cabin
+          <Button type="submit" style="primary" disabled={isSubmitting}>
+            <div className="flex justify-center gap-2 items-center">
+              {isSubmitting && <MiniSpinner color="#FFFFFF" secondaryColor="#e2e2e2" />}
+              Edit cabin
+            </div>
           </Button>
         </div>
       </Form>

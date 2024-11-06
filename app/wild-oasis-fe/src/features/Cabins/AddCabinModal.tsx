@@ -6,10 +6,11 @@ import Modal from "../../components/Modal";
 import { useModal } from "../../context/ModalContext";
 import { CabinDto } from "../../services/data/types";
 import { useInsertCabin } from "./hooks/useInsertCabin";
+import MiniSpinner from "../../components/MiniSpinner";
 
 const AddCabinModal = () => {
   const { closeModal } = useModal();
-  const { createCabin } = useInsertCabin();
+  const { createCabin, isInserting } = useInsertCabin();
 
   const {
     register,
@@ -17,7 +18,7 @@ const AddCabinModal = () => {
     reset,
     formState: { isSubmitting },
   } = useForm<CabinDto>();
-
+  console.log("SUBMITITNG: ", isSubmitting);
   const onSubmit: SubmitHandler<CabinDto> = async (cabin) => {
     try {
       createCabin(cabin, {
@@ -32,6 +33,8 @@ const AddCabinModal = () => {
       throw error;
     }
   };
+
+  console.log(isSubmitting);
 
   return (
     <Modal>
@@ -125,7 +128,10 @@ const AddCabinModal = () => {
             Cancel
           </Button>
           <Button type="submit" style="primary" disabled={isSubmitting}>
-            Create new cabin
+            <div className="flex justify-center gap-2 items-center">
+              {isInserting && <MiniSpinner color="#FFFFFF" secondaryColor="#e2e2e2" />}
+              Create new cabin
+            </div>
           </Button>
         </div>
       </Form>

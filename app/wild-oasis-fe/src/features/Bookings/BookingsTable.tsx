@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getBookings } from "../../services/bookingsService";
 import Table from "../../components/Table";
 import BookingRow from "./BookingRow";
+import PageSpinner from "../../components/PageSpinner";
 
 const bookingTableHeaders: string[] = ["Cabin", "Guest", "Dates", "Status", "Amount", " "];
 
@@ -15,7 +16,7 @@ const BookingsTable = () => {
     queryFn: getBookings,
   });
 
-  if (isPending) return <div>Loading...</div>;
+  if (isPending) return <PageSpinner />;
   if (error) return <div>error</div>;
 
   return (
